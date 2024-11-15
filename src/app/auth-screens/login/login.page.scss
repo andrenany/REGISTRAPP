@@ -1,0 +1,168 @@
+// Variables
+$card-bg-color: rgba(0, 0, 0, 1.7);
+$text-color: white; // Color blanco para el texto general
+$highlight-color: black; // Color negro para los textos específicos
+$button-bg: black;
+$button-text: white;
+
+:host {
+  .background-image {
+    background-image: url('/assets/images/imagen3.jpg'); // Asegúrate de que la ruta sea correcta
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0;
+  }
+}
+
+ion-content {
+  --ion-background-color: transparent;
+  --ion-text-color: $text-color;
+}
+
+h1, p, ion-label, ion-input, ion-text {
+  color: $text-color !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+  color: $highlight-color !important; // Color negro para "RegistrApp"
+  font-weight: bold !important; // Negrita
+}
+
+p {
+  color: $highlight-color !important; // Color negro para "Bienvenido al login"
+  font-weight: bold !important; // Negrita
+}
+
+ion-card {
+  width: 80%;
+  max-width: 400px;
+  background-color: $card-bg-color;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  margin: 20px auto;
+
+  ion-card-header {
+    ion-title {
+      color: $text-color;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+
+  ion-card-content {
+    padding: 20px;
+
+    ion-item {
+      --background: transparent;
+      --border-color: $text-color;
+      --padding-start: 0;
+      --inner-padding-end: 0;
+
+      ion-label {
+        opacity: 1;
+        color: $text-color;
+        font-weight: bold; // Negrita
+      }
+
+      ion-input {
+        --placeholder-color: $text-color;
+        --placeholder-opacity: 0.7;
+      }
+    }
+
+    ion-button {
+      --background: $button-bg;
+      --color: $button-text;
+      margin-top: 20px;
+      height: 40px;
+      font-size: 1rem;
+      color: $button-text; // Color de texto del botón blanco
+    }
+  }
+}
+
+.crear-cuenta-btn {
+  display: block;
+  width: 70%;
+  max-width: 300px;
+  margin: 20px auto;
+  height: 40px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  animation: colorChange 3s infinite alternate;
+  color: $text-color; // Asegúrate de que el texto del botón se muestre en el color deseado
+}
+
+@keyframes colorChange {
+  0% {
+    --background: black;
+    --color: white;
+  }
+  100% {
+    --background: rgb(0, 0, 0);
+    --color: black;
+  }
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center; /* Centra los íconos horizontalmente */
+  margin-top: 20px; /* Espaciado superior */
+}
+
+.social-icon {
+  font-size: 40px; /* Tamaño de los íconos */
+  background-color: white; /* Fondo blanco */
+  border-radius: 50%; /* Bordes redondeados */
+  padding: 10px; /* Espaciado interno */
+  margin: 0 10px; /* Espacio entre los íconos */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra suave para el ícono */
+  transition: background-color 0.3s; /* Transición para el cambio de color */
+}
+
+.social-icon:hover {
+  background-color: #FFC33F; /* Cambia a un color diferente al pasar el mouse */
+}
+
+
+@media screen and (max-width: 600px) {
+  ion-card {
+    width: 90%;
+  }
+
+  .crear-cuenta-btn {
+    width: 90%;
+  }
+}
+.input-icon {
+  font-size: 30px; /* Tamaño de los íconos */
+  color: white; /* Color blanco para los íconos */
+  margin-right: 10px; /* Espacio a la derecha del ícono */
+  background-color: transparent; /* Sin fondo para que no afecte el diseño */
+}
+
+ion-input {
+  --background: #333; /* Fondo oscuro para el input */
+  --color: white; /* Color del texto en el input */
+}
+
+.input {
+  background-color: #333; /* Cambia el color de fondo del input */
+  color: white; /* Asegura que el texto del input sea blanco */
+}
+
+.input-icon:hover {
+  color: #FFC33F; /* Cambia a un color diferente al pasar el mouse */
+}
+
+
+
+
+

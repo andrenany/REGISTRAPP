@@ -1,0 +1,97 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>RegistrApp</ion-title>
+    <ion-button slot="end" fill="clear" (click)="signOut()">Sign Out</ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" class="ion-padding background-image">
+  <h2 class="ion-text-center">Bienvenido!</h2>
+  
+  <div  class="ion-padding">
+    <strong>{{email}}</strong>
+  </div>
+
+  <ion-card class="tarjeta-animada">
+    <ion-card-header>
+      <ion-card-title>Información adicional</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="formulario">
+        <ion-grid>
+          <ion-row class="ion-align-items-center">
+            <ion-col size="4">
+              <ion-label>Nombre</ion-label>
+            </ion-col>
+            <ion-col size="8">
+              <ion-input formControlName="nombre" placeholder="Ingrese Nombre"></ion-input>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="ion-align-items-center">
+            <ion-col size="4">
+              <ion-label>Apellido</ion-label>
+            </ion-col>
+            <ion-col size="8">
+              <ion-input formControlName="apellido" placeholder="Ingrese Apellido"></ion-input>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="ion-align-items-center">
+            <ion-col size="4">
+              <ion-label>Clase</ion-label>
+            </ion-col>
+            <ion-col size="8">
+              <ion-select formControlName="nivelEducacion" placeholder="Seleccione Nivel">
+                <ion-select-option value="primaria">Desarrollo de aplicaciones web</ion-select-option>
+                <ion-select-option value="secundaria">Arquitectura</ion-select-option>
+                <ion-select-option value="universitaria">Calidad de sofware</ion-select-option>
+              </ion-select>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="ion-align-items-center">
+            <ion-col size="4">
+              <ion-label>Fecha de Clase</ion-label>
+            </ion-col>
+            <ion-col size="6">
+              <ion-input formControlName="fechaNacimiento" placeholder="Fecha Nacimiento" type="date"></ion-input>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button fill="clear">
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-button expand="full" color="danger" (click)="limpiar()" class="boton-animado">Limpiar</ion-button>
+        <ion-button expand="full" color="primary" (click)="mostrar()" class="boton-animado">Mostrar</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <!-- Botón para "volver" -->
+        <ion-tab-button tab="volver" (click)="navigateToLogin()">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+          <ion-label>Volver</ion-label>
+        </ion-tab-button>
+        <!-- Botón para "Agenda" -->
+          <ion-tab-button tab="agenda" (click)="navigateToagenda()">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <ion-label>Agenda</ion-label>
+          </ion-tab-button>
+
+
+        <!-- Botón para escanear código QR -->
+        <ion-tab-button tab="scanner" (click)="scanCode()">
+          <ion-icon name="qr-code-outline"></ion-icon>
+          <ion-label>Escanear</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,66 @@
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title color="primary">Inicio de Sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding background-image">
+  <h1 class="ion-text-center registrapp-text">Bienvenido de nuevo</h1>
+  <p class="ion-text-center bienvenido-text">Inicia sesión para acceder a tu cuenta</p>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-title class="iniciar-sesion-text">Iniciar Sesión</ion-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form [formGroup]="ionicForm" novalidate>
+        <ion-item lines="full">
+          <ion-icon name="person-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-input placeholder="usuario" formControlName="email" class="input"></ion-input>
+        </ion-item>
+
+        <div class="error-message" *ngIf="ionicForm.controls['email'].touched && ionicForm.controls['email'].invalid">
+          <ion-text *ngIf="errorControl.email.errors?.required" color="danger">El correo electrónico es obligatorio.</ion-text>
+          <ion-text *ngIf="errorControl.email.errors?.pattern" color="danger">Por favor, ingrese un correo electrónico válido.</ion-text>
+        </div>
+
+        <ion-item lines="full">
+          <ion-icon name="lock-closed-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-input type="password" placeholder="contraseña" formControlName="password" class="input"></ion-input>
+        </ion-item>
+
+        <div class="error-message" *ngIf="ionicForm.controls['password'].touched && ionicForm.controls['password'].invalid">
+          <ion-text *ngIf="errorControl.password.errors?.required" color="danger">La contraseña es obligatoria.</ion-text>
+          <ion-text *ngIf="errorControl.password.errors?.pattern" color="danger">La contraseña debe contener al menos un carácter.</ion-text>
+        </div>
+
+        <p class="ion-text-right ion-margin-horizontal forgotpassword">
+          <a [routerLink]="['/resset-password']" style="color: #FFC33F">¿Olvidaste tu contraseña?</a>
+        </p>
+
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <div style="margin-top: 100px;">
+              <ion-fab *ngIf="ionicForm.valid" vertical="bottom" horizontal="end">
+                <ion-fab-button type="submit" (click)="login()">
+                  <ion-icon name="chevron-forward"></ion-icon>
+                </ion-fab-button>
+              </ion-fab>
+            </div>
+          </ion-col>
+        </ion-row>
+        
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="full" class="crear-cuenta-btn" (click)="navigateToregistro()">Crear una cuenta gratis</ion-button>
+
+  <div class="social-icons">
+    <ion-icon name="logo-facebook" class="social-icon" aria-label="Inicio de sesión con Facebook"></ion-icon>
+    <ion-icon name="logo-twitter" class="social-icon" aria-label="Inicio de sesión con Twitter"></ion-icon>
+    <ion-icon name="logo-google" class="social-icon" aria-label="Inicio de sesión con Google"></ion-icon>
+  </div>
+</ion-content>
