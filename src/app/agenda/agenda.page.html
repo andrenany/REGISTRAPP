@@ -1,57 +1,70 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Agenda</ion-title>
+    <div class="header-content">
+      <div class="logo-container">
+        <img src="assets/images/APPCHECK.png" alt="Logo" class="logo" />
+      </div>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <!-- Formulario para agregar nueva tarea -->
-  <form (ngSubmit)="agregarTarea()">
-    <ion-item>
-      <ion-label position="floating">Fecha y Hora</ion-label>
-      <ion-datetime display-format="DD MMM YYYY, HH:mm" [(ngModel)]="dia" name="dia" required></ion-datetime>
-    </ion-item>
+<ion-content [fullscreen]="true" class="background">
+  <ion-card class="form-card">
+    <ion-card-header>
+      <ion-card-title>Nueva Tarea</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form (ngSubmit)="agregarTarea()">
+        <ion-item>
+          <ion-label position="stacked">Fecha y Hora</ion-label>
+          <ion-datetime display-format="DD MMM YYYY, HH:mm" [(ngModel)]="dia" name="dia" required></ion-datetime>
+        </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Asignatura</ion-label>
-      <ion-input [(ngModel)]="asignatura" name="asignatura" required></ion-input>
-    </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Asignatura</ion-label>
+          <ion-input [(ngModel)]="asignatura" name="asignatura" required placeholder="Ingrese la asignatura"></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Descripción</ion-label>
-      <ion-input [(ngModel)]="descripcion" name="descripcion" required></ion-input>
-    </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Descripción</ion-label>
+          <ion-input [(ngModel)]="descripcion" name="descripcion" required placeholder="Ingrese la descripción"></ion-input>
+        </ion-item>
 
-    <ion-button expand="full" type="submit" color="primary">Agregar Tarea</ion-button>
-  </form>
+        <ion-button expand="full" type="submit" class="add-button">AGREGAR TAREA</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
 
- <!-- Lista de tareas -->
-<ion-list>
-  <ion-item *ngFor="let tarea of tareas">
-    <ion-label>
-      <!-- Muestra la fecha en formato dd/mm/aaaa y la hora -->
-      <h2>{{ tarea.dia | date: 'dd/MM/yyyy' }}, {{ tarea.dia | date: 'shortTime' }}</h2>
-      <p><strong>Asignatura:</strong> {{ tarea.asignatura }}</p>
-      <p><strong>Descripción:</strong> {{ tarea.descripcion }}</p>
-    </ion-label>
-    <ion-button slot="end" color="danger" (click)="eliminarTarea(tareas.indexOf(tarea))">
-      <ion-icon name="trash-outline"></ion-icon>
-    </ion-button>
-  </ion-item>
-</ion-list>
-
-
+  <ion-card class="tasks-card">
+    <ion-card-header>
+      <ion-card-title>Tareas Pendientes</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let tarea of tareas">
+          <ion-label>
+            <h2>{{ tarea.dia | date: 'dd/MM/yyyy' }}, {{ tarea.dia | date: 'shortTime' }}</h2>
+            <p><strong>Asignatura:</strong> {{ tarea.asignatura }}</p>
+            <p><strong>Descripción:</strong> {{ tarea.descripcion }}</p>
+          </ion-label>
+          <ion-button slot="end" color="danger" (click)="eliminarTarea(tareas.indexOf(tarea))">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+
 <ion-footer>
   <ion-toolbar>
     <ion-tabs>
       <ion-tab-bar slot="bottom">
-        <!-- Botón para "volver" -->
         <ion-tab-button tab="volver" (click)="navigateTohome()">
           <ion-icon name="arrow-back-outline"></ion-icon>
           <ion-label>Volver</ion-label>
         </ion-tab-button>
-      </ion-tab-bar> <!-- Cierra ion-tab-bar -->
-    </ion-tabs> <!-- Cierra ion-tabs -->
+      </ion-tab-bar>
+    </ion-tabs>
   </ion-toolbar>
-</ion-footer> <!-- Cierra ion-footer -->
+</ion-footer>
