@@ -1,0 +1,94 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="header-content">
+      <div class="logo-container">
+        <img src="assets/images/APPCHECK.png" alt="Logo" class="logo" />
+      </div>
+      <ion-button fill="outline" (click)="signOut()">Sign Out</ion-button>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="background">
+  <div class="welcome-section">
+    <h2>¡Hola {{email}}!</h2>
+    <p class="user-type">Usuario</p>
+  </div>
+
+  <!-- Reuniones Pendientes -->
+  <ion-card class="meetings-card">
+    <ion-card-header>
+      <div class="header-content">
+        <ion-card-title>Reuniones Pendientes</ion-card-title>
+      </div>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let reunion of reunionesPendientes" [ngClass]="reunion.tipo">
+          <ion-label>
+            <h2>{{reunion.titulo}}</h2>
+            <p>{{reunion.hora}} - {{reunion.ubicacion}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Información Adicional -->
+  <ion-card class="info-card tarjeta-animada">
+    <ion-card-header>
+      <ion-card-title>Información adicional</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="formulario">
+        <ion-item>
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input formControlName="nombre" placeholder="Ingrese Nombre"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Apellido</ion-label>
+          <ion-input formControlName="apellido" placeholder="Ingrese Apellido"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Tipo de Reunión</ion-label>
+          <ion-select formControlName="tipoReunion" placeholder="Seleccione Tipo">
+            <ion-select-option value="web">Desarrollo de aplicaciones web</ion-select-option>
+            <ion-select-option value="arch">Arquitectura</ion-select-option>
+            <ion-select-option value="quality">Calidad de software</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Fecha de Reunión</ion-label>
+          <ion-input formControlName="fechaReunion" type="date"></ion-input>
+        </ion-item>
+        <div class="button-container">
+          <ion-button expand="full" color="danger" (click)="limpiar()" class="boton-animado">LIMPIAR</ion-button>
+          <ion-button expand="full" color="primary" (click)="mostrar()" class="boton-animado">MOSTRAR</ion-button>
+        </div>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="volver" (click)="navigateToLogin()">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+          <ion-label>Volver</ion-label>
+        </ion-tab-button>
+        
+        <ion-tab-button tab="agenda" (click)="navigateToagenda()">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <ion-label>Agenda</ion-label>
+        </ion-tab-button>
+        
+        <ion-tab-button tab="scanner" (click)="scanCode()">
+          <ion-icon name="qr-code-outline"></ion-icon>
+          <ion-label>Escanear</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,19 @@
+# Dependencias de Node.js
+node_modules/
+
+# Archivos y carpetas de compilación
+platform/
+plugins/
+www/
+build/
+
+# Archivos de entorno de desarrollo
+.idea/
+.vscode/
+.DS_Store
+.env
+# Ignorar archivos de caché de Angular
+.angular/cache/
+
+# Logs y reportes
+*.log
