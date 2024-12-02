@@ -49,39 +49,51 @@ export class LoginPage implements OnInit {
   }
 
   async login() {
-    console.log('Iniciando sesión...');
+    const loading = await this.loadingController.create(); // Crea el indicador de carga.
+    await loading.present(); // Muestra el indicador de carga.
   
-    const loading = await this.loadingController.create();
-    await loading.present();
-    // Muestra el indicador de carga mientras se realiza el proceso de inicio de sesión.
+    try {
+      if (this.ionicForm.valid) {
+        // Verifica si el formulario es válido.
+        console.log('Formulario válido, procesando inicio de sesión...');
   
-    if (this.ionicForm.valid) {
-      // Verifica si el formulario es válido.
-      console.log('Formulario válido, procesando inicio de sesión...');
+        const user = await this.authService.loginUser(
+          this.ionicForm.value.email,
+          this.ionicForm.value.password
+        );
   
-      const user = await this.authService.loginUser(
-        this.ionicForm.value.email,
-        this.ionicForm.value.password
-      ).catch((err) => {
-        // Si ocurre un error durante el inicio de sesión, lo captura y muestra un mensaje.
-        console.error('Error al iniciar sesión:', err);
-        this.presentToast('Error al iniciar sesión: Usuario O contraseña Incorrecto ');
-        loading.dismiss();
-        // Oculta el indicador de carga si ocurre un error.
-      });
-  
-      if (user) {
-        // Si el inicio de sesión es exitoso.
-        console.log('Inicio de sesión exitoso, redirigiendo...');
-        loading.dismiss();
-        this.router.navigate(['/home']);
+        if (user) {
+          // Si el inicio de sesión es exitoso.
+          console.log('Inicio de sesión exitoso, redirigiendo...');
+          this.router.navigate(['/home']); // Redirige al usuario a la página principal.
+        } else {
+          // Si el inicio de sesión falla.
+          await this.showToast('Error al iniciar sesión: Usuario o contraseña incorrecto.');
+        }
+      } else {
+        // Si el formulario no es válido.
+        console.error('Formulario inválido. Por favor, completa todos los campos requeridos.');
+        await this.showToast('Por favor, completa todos los campos requeridos.');
       }
-    } else {
-      // Si el formulario no es válido, muestra un mensaje en la consola.
-      console.error('Formulario inválido. Por favor, completa todos los campos requeridos.');
-      this.presentToast('Por favor, completa todos los campos requeridos.');
-      loading.dismiss();
+    } catch (err) {
+      // Manejo de cualquier error inesperado.
+      console.error('Error al iniciar sesión:', err);
+      await this.showToast('Error al iniciar sesión. Intenta nuevamente.');
+    } finally {
+      // Asegura que el indicador de carga se oculta.
+      if (loading) {
+        await loading.dismiss();
+      }
     }
+  }
+  
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 3000,
+      position: 'bottom',
+    });
+    await toast.present();
   }
   
   get errorControl() {

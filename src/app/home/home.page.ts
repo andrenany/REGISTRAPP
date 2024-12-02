@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertController, LoadingController, ToastController, AnimationController } from '@ionic/angular';
 import { EstadoService } from 'src/app/services/estado.service';
-import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
+import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { Storage } from '@ionic/storage-angular';
 
 @Component({
@@ -13,12 +13,12 @@ import { Storage } from '@ionic/storage-angular';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
+  scanCount = 0; // Contador de escaneos
   email: any;
   userEmail: string = ''; // Agregado para el template
   formulario: FormGroup;
   showCalendar: boolean = false;
   contador: number = 0;
-  barcodes = [];
   NumFac: string;
   fechaActual: Date = new Date();
   notificacionesPendientes: number = 2;
@@ -181,30 +181,40 @@ Fecha de Reunión: ${formData.fechaReunion}`,
       await loading.dismiss();
     }
   }
-
-  async scanCode() {
+  async startScanner() {
     try {
-      const result: { content: string } = await BarcodeScanner.startScan() as any;
+      // Verifica y solicita permisos
+      const status = await BarcodeScanner.checkPermission({ force: true });
+      if (!status.granted) {
+        alert('Permiso de cámara denegado.');
+        return;
+      }
 
-      if (result && result.content) {
-        const scannedData = result.content;
-        await this.registrarAsistencia(scannedData);
-        this.showToast(`Asistencia registrada para la reunión: ${scannedData}`);
+      // Oculta la interfaz para escanear
+      document.body.style.background = 'transparent';
+
+      // Inicia el escaneo
+      const result = await BarcodeScanner.startScan();
+      if (result.hasContent) {
+        // Incrementa el contador si hay contenido
+        this.scanCount++;
+        alert(`Código escaneado: ${result.content}\nTotal escaneos: ${this.scanCount}`);
       } else {
-        this.showToast('No se detectó contenido en el código.');
+        alert('No se encontró contenido en el código.');
       }
     } catch (error) {
-      console.error("Error al escanear el código", error);
-      this.showToast("Error al escanear el código");
+      console.error('Error durante el escaneo:', error);
+    } finally {
+      // Restaura la interfaz después del escaneo
+      BarcodeScanner.showBackground();
+      document.body.style.background = '';
     }
   }
 
-  async showToast(message: string) {
-    const toast = await this.ToastController.create({
-      message,
-      duration: 2000,
-      position: 'bottom'
-    });
-    await toast.present();
+  async stopScanner() {
+    // Detiene el escáner si es necesario
+    await BarcodeScanner.stopScan();
+    console.log('Escáner detenido.');
   }
+
 }

@@ -33,9 +33,6 @@ const routes: Routes = [
     path: 'agenda',
     loadChildren: () => import('./agenda/agenda.module').then( m => m.AgendaPageModule),
     canActivate: [AuthGuard], // Aquí se aplica el guard
-  },  {
-    path: 'scan',
-    loadChildren: () => import('./scan/scan.module').then( m => m.ScanPageModule)
   },
 
 ];

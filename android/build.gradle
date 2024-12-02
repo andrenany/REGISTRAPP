@@ -18,11 +18,14 @@ buildscript {
 apply from: "variables.gradle"
 
 allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
+  repositories {
+    google()
+    mavenCentral()
+    jcenter() // Si no existe, añade este repositorio (aunque está descontinuado, algunos paquetes aún lo usan)
+    maven { url 'https://jitpack.io' } // Agrega este para bibliotecas alojadas en GitHub
+  }
 }
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir

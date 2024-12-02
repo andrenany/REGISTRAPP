@@ -83,11 +83,12 @@
           <ion-icon name="calendar-outline"></ion-icon>
           <ion-label>Agenda</ion-label>
         </ion-tab-button>
-        
-        <ion-tab-button tab="scanner" (click)="scanCode()">
+        <ion-tab-button tab="scanner" (click)="startScanner()">
           <ion-icon name="qr-code-outline"></ion-icon>
           <ion-label>Escanear</ion-label>
+          <ion-badge slot="end" *ngIf="scanCount > 0">{{ scanCount }}</ion-badge>
         </ion-tab-button>
+        
       </ion-tab-bar>
     </ion-tabs>
   </ion-toolbar>
